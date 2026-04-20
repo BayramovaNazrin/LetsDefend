@@ -43,15 +43,15 @@ The destination email domain is **nichost.ru**. A Russian hosting provider. Comb
 | HybridAnalysis | Malicious |
 
 ![Alternative Text](images/url-virustotal.png)
-*Figure 1: VirusTotal analysis of the phishing URL, 14/91 security vendors flagged this URL as malicious.*
+*Figure 2: VirusTotal analysis of the phishing URL, 14/91 security vendors flagged this URL as malicious.*
 
 
 ![Alternative Text](images/url-anyrun.png)
-*Figure 2: AnyRun analysis of the phishing URL, verdict is malicious activity.*
+*Figure 3: AnyRun analysis of the phishing URL, verdict is malicious activity.*
 
 
 ![Alternative Text](images/url-hybridanalysis.png)
-*Figure 3: HybridAnalysis analysis of the phishing URL, verdict is malicious.*
+*Figure 4: HybridAnalysis analysis of the phishing URL, verdict is malicious.*
 
 
 ---
@@ -65,7 +65,8 @@ Destination:  91.189.114.8:80
 Request URL:  http://mogagrocol.ru/wp-content/plugins/akismet/fv/index.php?email=ellie@letsdefend.io
 Firewall:     ALLOWED
 ```
-![Alternative Text](images/url-hybridanalysis.png)
+![Alternative Text](images/logs_ip_allowed.png)
+*Figure 5: Log history for 91.189.114.8*
 
 The request was **not blocked**, EmilyComp successfully reached the malicious page.
 
@@ -75,18 +76,20 @@ The request was **not blocked**, EmilyComp successfully reached the malicious pa
 
 ### Processes
 
-| Process | Path | Status |
-|---|---|---|
-| AcroRd32.exe | Program Files (x86) | Legitimate |
-| ccsvchst.exe | Symantec AV path | Legitimate |
-| notepad.exe | System path | Legitimate |
-| Chrome.exe | `c:\program files\internet explorer\iexplore.exe` | **Suspicious** |
-| rundll32.exe | — | **Suspicious** |
-| KBDYAK.exe | — | **Malicious** |
+| Process | Path | md5 hash | Status |
+|---|---|---|---|
+| AcroRd32.exe | c:/program files (x86)/adobe/acrobat reader dc/reader/acrord32.exe | 357b03e0b8d0c30713f2c41ce60583c5 | Legitimate |
+| ccsvchst.exe | c:/program files (x86)/symantec/symantec endpoint protection/14/bin/ccsvchst.exe | aba0a9709e6c11bc0b6ee21de36743e3 | Legitimate |
+| notepad.exe | c:/windows/system32/notepad.exe | FC2EA5BD5307D2CFA5AAA38E0C0DDCE9 | Legitimate |
+| Chrome.exe | c:/program files/internet explorer/iexplore.exe | - | **Suspicious** |
+| rundll32.exe | - | - |  **Suspicious** |
+| KBDYAK.exe | - | a4513379dad5233afa402cc56a8b9222 | **Malicious** |
 
-**Chrome.exe** path shows `c:\program files\internet explorer\iexplore.exe` instead of the legitimate `c:\Program Files\Google\Chrome\Application\chrome.exe`. This indicates **masquerading** — the process is iexplore.exe presenting itself as Chrome to evade detection.
+**Chrome.exe** path shows `c:\program files\internet explorer\iexplore.exe` instead of the legitimate `c:\Program Files\Google\Chrome\Application\chrome.exe`. This indicates **masquerading**; the process is iexplore.exe presenting itself as Chrome to evade detection.
 
-**KBDYAK.exe** is an unknown process with a random-looking name. VirusTotal hash analysis flagged it as **Trojan.Emotet** — 66/72 vendors confirmed malicious.
+**KBDYAK.exe** is an unknown process with a random-looking name. VirusTotal hash analysis flagged it as **Trojan.Emotet**; 66/72 vendors confirmed malicious.
+![Alternative Text](images/md5hash_KBDYAK_virustotal.png)
+*Figure 6: KBDYAK.exe md5 hash analysis from VirusTotal*
 
 > Emotet is a trojan originally built for banking credential theft, later evolved into a loader for additional payloads.
 
@@ -100,8 +103,10 @@ Normal rundll32 structure:
 ```
 rundll32.exe  shell32.dll,  Control_RunDLL
 ```
+![Alternative Text](images/rundll_analysis.png)
+*Figure 7: rundll malicious command analysis*
 
-This command is abnormal — instead of a DLL path it uses a `javascript:` protocol handler. This is **proxy execution**: rundll32 (a trusted Windows binary) is used as a middleman to load mshtml.dll (IE's leftover engine), which runs JavaScript, which then fetches and executes KBDYAK.exe from a remote Russian domain.
+This command is abnormal. Instead of a DLL path it uses a `javascript:` protocol handler. This is **proxy execution**: rundll32 (a trusted Windows binary) is used as a middleman to load mshtml.dll (IE's leftover engine), which runs JavaScript, which then fetches and executes KBDYAK.exe from a remote Russian domain.
 
 **MITRE ATT&CK:**
 - T1218.011 — Proxy Execution: Rundll32
@@ -113,7 +118,7 @@ This command is abnormal — instead of a DLL path it uses a `javascript:` proto
 
 Both IPs communicating with EmilyComp were confirmed as **Emotet Epoch 2 C2 servers** via [Cryptolaemus](https://paste.cryptolaemus.com/) threat intelligence.
 
-The same C2 server also communicated with **MikeComputer (172.16.17.14)** — indicating lateral spread within the network.
+The same C2 server also communicated with **MikeComputer (172.16.17.14)**. Indicating lateral spread within the network.
 
 ### Browser History
 
