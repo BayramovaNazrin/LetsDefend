@@ -1,2 +1,2 @@
 # LetsDefend
-Walkthroughs for alers
+Walkthroughs for alerts
