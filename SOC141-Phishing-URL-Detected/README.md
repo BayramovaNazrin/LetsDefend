@@ -24,7 +24,11 @@
 
 First observation: it uses **HTTP instead of HTTPS**. The domain is Russian.
 
-The path contains `/akismet` which is a well-known WordPress anti-spam plugin. However, after checking the [real Akismet source on GitHub](https://github.com/wp-plugins/akismet), the plugin does **not** have a `/fv` folder. This means the folder was injected by the attacker into a compromised WordPress site.
+The path contains `/akismet` which is a well-known WordPress anti-spam plugin. However, after checking the [real Akismet source on GitHub](https://github.com/wp-plugins/akismet), the plugin does **not** have a `/fv` folder. 
+![Alternative Text](images/akismet_real_repo.png)
+*Figure 1: Git Hub Akismet folder*
+
+This means the folder was injected by the attacker into a compromised WordPress site.
 
 Additionally, the `?email=ellie@letsdefend.io` parameter passed in plaintext is suspicious. This indicates **email harvesting behavior**. The PHP script receives the email and forwards it to the attacker's server.
 
@@ -34,11 +38,21 @@ The destination email domain is **nichost.ru**. A Russian hosting provider. Comb
 
 | Tool | Result |
 |---|---|
-| VirusTotal | Malicious |
-| AnyRun |  14/91 security vendors flagged this URL as malicious  |
+| VirusTotal | 14/91 security vendors flagged this URL as malicious |
+| AnyRun | Malicious |
 | HybridAnalysis | Malicious |
 
-**Verdict: MALICIOUS**
+![Alternative Text](images/url-virustotal.png)
+*Figure 1: VirusTotal analysis of the phishing URL, 14/91 security vendors flagged this URL as malicious.*
+
+
+![Alternative Text](images/url-anyrun.png)
+*Figure 2: AnyRun analysis of the phishing URL, verdict is malicious activity.*
+
+
+![Alternative Text](images/url-hybridanalysis.png)
+*Figure 3: HybridAnalysis analysis of the phishing URL, verdict is malicious.*
+
 
 ---
 
@@ -51,8 +65,9 @@ Destination:  91.189.114.8:80
 Request URL:  http://mogagrocol.ru/wp-content/plugins/akismet/fv/index.php?email=ellie@letsdefend.io
 Firewall:     ALLOWED
 ```
+![Alternative Text](images/url-hybridanalysis.png)
 
-The request was **not blocked** — EmilyComp successfully reached the malicious page.
+The request was **not blocked**, EmilyComp successfully reached the malicious page.
 
 ---
 
