@@ -11,6 +11,10 @@
 | Destination IP | 91.189.114.8 |
 | Source Hostname | EmilyComp |
 | Destination Hostname | mogagrocol.ru |
+| Domain name | nichost.ru |
+| URL | http://mogagrocol.ru/wp-content/plugins/akismet/fv/index.php?email=ellie@letsdefend.io |
+| User Agent | Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36 |
+
 
 ---
 
@@ -18,20 +22,20 @@
 
 **URL:** `http://mogagrocol.ru/wp-content/plugins/akismet/fv/index.php?email=ellie@letsdefend.io`
 
-First observation — it uses **HTTP instead of HTTPS**. The domain is Russian.
+First observation: it uses **HTTP instead of HTTPS**. The domain is Russian.
 
 The path contains `/akismet` which is a well-known WordPress anti-spam plugin. However, after checking the [real Akismet source on GitHub](https://github.com/wp-plugins/akismet), the plugin does **not** have a `/fv` folder. This means the folder was injected by the attacker into a compromised WordPress site.
 
-Additionally, the `?email=ellie@letsdefend.io` parameter passed in plaintext is suspicious — this indicates **email harvesting behavior**. The PHP script receives the email and forwards it to the attacker's server.
+Additionally, the `?email=ellie@letsdefend.io` parameter passed in plaintext is suspicious. This indicates **email harvesting behavior**. The PHP script receives the email and forwards it to the attacker's server.
 
-The destination email domain is **nichost.ru** — a Russian hosting provider. Combined with the Russian phishing domain (mogagrocol.ru), this suggests consistent Russia-based attacker infrastructure.
+The destination email domain is **nichost.ru**. A Russian hosting provider. Combined with the Russian phishing domain (mogagrocol.ru), this suggests consistent Russia-based attacker infrastructure.
 
 ### Sandbox Results
 
 | Tool | Result |
 |---|---|
 | VirusTotal | Malicious |
-| AnyRun | Malicious |
+| AnyRun |  14/91 security vendors flagged this URL as malicious  |
 | HybridAnalysis | Malicious |
 
 **Verdict: MALICIOUS**
