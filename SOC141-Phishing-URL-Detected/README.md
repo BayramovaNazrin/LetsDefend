@@ -109,10 +109,10 @@ rundll32.exe  shell32.dll,  Control_RunDLL
 This command is abnormal. Instead of a DLL path it uses a `javascript:` protocol handler. This is **proxy execution**: rundll32 (a trusted Windows binary) is used as a middleman to load mshtml.dll (IE's leftover engine), which runs JavaScript, which then fetches and executes KBDYAK.exe from a remote Russian domain.
 
 **MITRE ATT&CK:**
-- T1218.011 — Proxy Execution: Rundll32
-- T1059.007 — JavaScript
-- T1105 — Ingress Tool Transfer
-- T1036 — Masquerading
+- T1218.011 - Proxy Execution: Rundll32
+- T1059.007 - JavaScript
+- T1105 - Ingress Tool Transfer
+- T1036 - Masquerading
 
 ### Connections
 
@@ -121,15 +121,24 @@ Both IPs communicating with EmilyComp were confirmed as **Emotet Epoch 2 C2 serv
 The same C2 server also communicated with **MikeComputer (172.16.17.14)**. Indicating lateral spread within the network.
 
 ### Browser History
+![Alternative Text](images/browser_history_suspicious.png)
+*Figure 8: The suspicious browser history*
 
-```
 2020-12-05 22:36  →  http://bit.ly/3ecXem52
+
+![Alternative Text](images/1st_url_suspicious_browser_history_virustotal.png)
+*Figure 9: virustotal analysis of the url*
+
 2020-12-05 22:37  →  http://places.hayatistanbul.net/wp-content/themes/Netflix
-```
 
-These searches are **outside work hours**. `bit.ly` is a URL shortener frequently used in phishing — victim cannot see the real destination. The second URL is a fake Netflix login page hosted on a compromised WordPress site, both over HTTP. Both flagged as malicious on VirusTotal.
+![Alternative Text](images/2nd_url_suspicious_browser_virustotal.png)
+*Figure 10: virustotal analysis of the url*
 
-This browser history is from **December 2020** — 3 months before the alert — meaning the endpoint was already at risk long before detection.
+
+
+These searches are **outside work hours**. `bit.ly` is a URL shortener frequently used in phishing, victim cannot see the real destination. The second URL is a fake Netflix login page hosted on a compromised WordPress site, both over HTTP. Both flagged as malicious on VirusTotal.
+
+This browser history is from **December 2020**, 3 months before the alert, meaning the endpoint was already at risk long before detection.
 
 **User-Agent:**
 ```
@@ -145,23 +154,23 @@ Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
 
 | Artifact | Type | Verdict |
 |---|---|---|
-| 91.189.114.8 | IP — Phishing host | Malicious |
+| 91.189.114.8 | IP Phishing host | Malicious |
 | mogagrocol.ru | Domain | Malicious |
-| Emotet C2 IP 1 | IP — C2 Server (Epoch 2) | Malicious |
-| Emotet C2 IP 2 | IP — C2 Server (Epoch 2) | Malicious |
-| KBDYAK.exe hash | File Hash | Malicious — Trojan.Emotet |
-| ru-uid-507352920.pp.ru | Domain — payload source | Malicious |
+| Emotet C2 IP 1 | IP C2 Server (Epoch 2) | Malicious |
+| Emotet C2 IP 2 | IP C2 Server (Epoch 2) | Malicious |
+| KBDYAK.exe hash | File Hash | Malicious Trojan.Emotet |
+| ru-uid-507352920.pp.ru | Domain payload source | Malicious |
 
 ---
 
 ## 5. Verdict
 
-**True Positive — Emotet Infection Confirmed**
+**True Positive - Emotet Infection Confirmed**
 
 - Phishing URL accessed from EmilyComp (172.16.17.49)
 - Emotet payload (KBDYAK.exe) delivered via rundll32 proxy execution
 - Two Emotet Epoch 2 C2 servers communicating with the endpoint
-- Lateral movement identified — MikeComputer (172.16.17.14) also communicated with same C2
+- Lateral movement identified - MikeComputer (172.16.17.14) also communicated with same C2
 
 **Actions Taken:**
 - EmilyComp contained
