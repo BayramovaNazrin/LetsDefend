@@ -156,9 +156,9 @@ Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
 |---|---|---|
 | 91.189.114.8 | IP Phishing host | Malicious |
 | mogagrocol.ru | Domain | Malicious |
-| Emotet C2 IP 1 | IP C2 Server (Epoch 2) | Malicious |
-| Emotet C2 IP 2 | IP C2 Server (Epoch 2) | Malicious |
-| KBDYAK.exe hash | File Hash | Malicious Trojan.Emotet |
+| 67.68.210.95 | IP C2 Server (Epoch 2) | Malicious, confirmed via Cryptolaemus E2 delta (Aug 28, 2020) |
+| 162.241.242.173 | IP C2 Server (Epoch 2) | Malicious, confirmed via Cryptolaemus E2 list (Oct 22, 2020) |
+| KBDYAK.exe — a4513379dad5233afa402cc56a8b9222 | File Hash | Malicious Trojan.Emotet |
 | ru-uid-507352920.pp.ru | Domain payload source | Malicious |
 
 ---
@@ -175,3 +175,17 @@ Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
 **Actions Taken:**
 - EmilyComp contained
 - MikeComputer (172.16.17.14) flagged for immediate investigation and containment
+
+---
+
+## 6. Recommendations
+| Priority | Recommendation | Rationale | 
+| --- | --- | --- |
+| Critical | Upgrade EmilyComp from Windows 7 to Windows 10/11 | Windows 7 reached EOL Jan 2020; no security patches available | 
+| Critical | Enforce browser update policy across all endpoints | Chrome 79 was ~1 year outdated at time of incident |
+| High | Block .ru TLD at perimeter firewall/proxy | Both phishing domain and payload source were .ru |
+| High | Enforce HTTPS-only browsing via proxy policy | Both phishing URLs used plain HTTP |
+| High | Investigate and contain MikeComputer (172.16.17.14) | Confirmed communication with same Emotet Epoch 2 C2 |
+| Medium | Block or alert on rundll32.exe using javascript: protocol | Abnormal LOLBin usage indicating proxy execution|
+| Medium | Deploy URL reputation filtering for bit.ly and similar shorteners | Shorteners mask malicious destinations in phishing chains | 
+| Low | Enforce after-hours web browsing restrictions or alerts | Suspicious activity in December 2020 occurred outside business hours | 
