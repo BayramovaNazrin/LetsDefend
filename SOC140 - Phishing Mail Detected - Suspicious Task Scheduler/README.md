@@ -1,26 +1,26 @@
-# SOC141 - Phishing URL Detected | LetsDefend Walkthrough
+# SOC140 - Phishing Mail Detected - Suspicious Task Scheduler | LetsDefend Walkthrough
 
 ## Alert Details
 
 | Field | Value |
 |---|---|
-| EventID | 86 |
-| Rule Name | SOC141 - Phishing URL Detected |
-| Date/Time | Mar 22, 2021, 09:23 PM |
-| Source IP | 172.16.17.49 |
-| Destination IP | 91.189.114.8 |
-| Source Hostname | EmilyComp |
-| Destination Hostname | mogagrocol.ru |
-| Domain name | nichost.ru |
-| URL | http://mogagrocol.ru/wp-content/plugins/akismet/fv/index.php?email=ellie@letsdefend.io |
-| User Agent | Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36 |
+| EventID | 82 |
+| Rule Name | SOC140 - Phishing Mail Detected - Suspicious Task Scheduler |
+| Date/Time | Mar, 21, 2021, 12:26 PM |
+| SMTP Address | 189.162.189.159 |
+| Source Address | aaronluo@cmail.carleton.ca |
+| Destination Address | mark@letsdefend.io |
+| E-mail Subject | COVID19 Vaccine |
+| Device Action | Blocked |
+| Attachment | 72c812cf21909a48eb9cceb9e04b865d |
+| URL | https://download.cyberlearn.academy/download/download?url=https://files-ld.s3.us-east-2.amazonaws.com/72c812cf21909a48eb9cceb9e04b865d.zip |
 
 
 ---
 
 ## 1. URL Analysis
 
-**URL:** `http://mogagrocol.ru/wp-content/plugins/akismet/fv/index.php?email=ellie@letsdefend.io`
+**URL:** `https://download.cyberlearn.academy/download/download?url=https://files-ld.s3.us-east-2.amazonaws.com/72c812cf21909a48eb9cceb9e04b865d.zip`
 
 First observation: it uses **HTTP instead of HTTPS**. The domain is Russian.
 
