@@ -63,6 +63,7 @@ The first step is verifying whether the SMTP origin matches the claimed sender d
 ### 3.1 Sandbox Analysis - ANY.RUN
 
 **Report:** https://app.any.run/tasks/7d715163-0488-4611-ac5a-3c9c71dfb513
+
 ![Alternative Text](images/sandbox_report.png)
 *Figure 1: AnyRun sandbox report*
 
@@ -127,6 +128,9 @@ After clicking Allow, the browser navigates to `https://a.pomf.cat/hgfetb.R11`. 
 ANY.RUN's IDS layer (Suricata) flagged active malicious network behavior during dynamic analysis - not just a static file match. The sample *actually did something* over the network while being analyzed.
 
 #### Behavior - INFO Events
+
+![Alternative Text](images/behavior_tree.png)
+*Figure 7: The behavior activies from the AnyRun report*
 
 | Behavior | Process | Analysis |
 |---|---|---|
