@@ -88,7 +88,7 @@ The delivery URL presents a password-gated download page asking the user to type
 WinRAR shows the ZIP contains exactly one file: `Material.pdf` (358,546 bytes).  
 File timestamp: **3/21/2021** - matches the alert date exactly, confirming the payload was freshly created and deployed on the day of the attack.
 
-![Alternative Text](images/archieve_contents.png)
+![Alternative Text](images/archive_contents.png)
 *Figure 3: The Archieve*
 
 **Step 3 - User interaction required**
