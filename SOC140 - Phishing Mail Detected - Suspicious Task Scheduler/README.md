@@ -78,20 +78,20 @@ Tags breakdown:
 
 The delivery URL presents a password-gated download page asking the user to type "infected" - a social engineering gate making the victim actively participate in their own infection.
 
-![Delivery page — cyberlearn.academy download gate]
+![Alternative Text](images/delivery_page.png)
 
 **Step 2 - Archive contents**
 
 WinRAR shows the ZIP contains exactly one file: `Material.pdf` (358,546 bytes).  
 File timestamp: **3/21/2021** - matches the alert date exactly, confirming the payload was freshly created and deployed on the day of the attack.
 
-![WinRAR showing Material.pdf inside the ZIP]
+![Alternative Text](images/arhieve_contents.png)
 
 **Step 3 - User interaction required**
 
 Windows presents an "How do you want to open this file?" dialog. Adobe Acrobat is selected. This confirms user interaction was required - execution is not automatic.
 
-![Windows Open With dialog — Adobe Acrobat selected]
+![Alternative Text](images/how_open_the_file.png)
 
 **Step 4 - The smoking gun**
 
@@ -101,13 +101,13 @@ Upon opening in Adobe Acrobat, a Security Warning dialog appears:
 
 The PDF's embedded `/Launch` action triggered this the moment Acrobat opened the file. The document is visually designed as a professional Purchase Order with a Mazda logo and "PURCHASE ORDER" header - purely to establish trust and convince the victim to click Allow.
 
-![Acrobat Security Warning - document trying to connect to a.pomf.cat]
+![Alternative Text](images/security_warning.png)
 
 **Step 5 - Phishing destination**
 
 After clicking Allow, the browser navigates to `https://a.pomf.cat/hgfetb.R11`. The page is now down (ERR_CONNECTION_REFUSED) - phishing infrastructure is typically taken down quickly after campaigns end. ANY.RUN captured the connection while it was live.
 
-![Browser showing a.pomf.cat refused to connect]
+![Alternative Text](images/phishing_destination.png)
 
 ---
 
