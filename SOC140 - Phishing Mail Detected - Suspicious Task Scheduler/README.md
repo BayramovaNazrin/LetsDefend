@@ -63,6 +63,8 @@ The first step is verifying whether the SMTP origin matches the claimed sender d
 ### 3.1 Sandbox Analysis - ANY.RUN
 
 **Report:** https://app.any.run/tasks/7d715163-0488-4611-ac5a-3c9c71dfb513
+![Alternative Text](images/sandbox_report.png)
+*Figure 1: AnyRun sandbox report*
 
 **Verdict:** Malicious  
 **Tags:** `arch-doc` `phishing` `phish-pdf` `phish-img`
@@ -79,19 +81,22 @@ Tags breakdown:
 The delivery URL presents a password-gated download page asking the user to type "infected" - a social engineering gate making the victim actively participate in their own infection.
 
 ![Alternative Text](images/delivery_page.png)
+*Figure 2: The delivery page*
 
 **Step 2 - Archive contents**
 
 WinRAR shows the ZIP contains exactly one file: `Material.pdf` (358,546 bytes).  
 File timestamp: **3/21/2021** - matches the alert date exactly, confirming the payload was freshly created and deployed on the day of the attack.
 
-![Alternative Text](images/arhieve_contents.png)
+![Alternative Text](images/archieve_contents.png)
+*Figure 3: The Archieve*
 
 **Step 3 - User interaction required**
 
 Windows presents an "How do you want to open this file?" dialog. Adobe Acrobat is selected. This confirms user interaction was required - execution is not automatic.
 
 ![Alternative Text](images/how_open_the_file.png)
+*Figure 4: Open the file with Adobe Acrobat*
 
 **Step 4 - The smoking gun**
 
@@ -102,12 +107,14 @@ Upon opening in Adobe Acrobat, a Security Warning dialog appears:
 The PDF's embedded `/Launch` action triggered this the moment Acrobat opened the file. The document is visually designed as a professional Purchase Order with a Mazda logo and "PURCHASE ORDER" header - purely to establish trust and convince the victim to click Allow.
 
 ![Alternative Text](images/security_warning.png)
+*Figure 5: Directed to the a.pomf.cat site*
 
 **Step 5 - Phishing destination**
 
 After clicking Allow, the browser navigates to `https://a.pomf.cat/hgfetb.R11`. The page is now down (ERR_CONNECTION_REFUSED) - phishing infrastructure is typically taken down quickly after campaigns end. ANY.RUN captured the connection while it was live.
 
 ![Alternative Text](images/phishing_destination.png)
+*Figure 6: The phishing site*
 
 ---
 
