@@ -17,7 +17,9 @@
 * **Attachments:** None
 
 **Email Body:**
-> "Hi Susie, Can we arrange a meeting today if you are available?"
+![Alternative Text](images/Suspicious_Email.png) \
+*Figure 1: Suspicious Email from John to Susie*
+
 
 **Analysis Findings:**
 * **Suspicious Indicators:** The email contains a generic greeting, awkward phrasing, and lacks essential details about the meeting (intent, topic, duration).
@@ -28,9 +30,14 @@
 * **Process Analysis:**
   * Legitimate processes observed running: `notepad.exe`, `AcroRd32.exe`, `googleupdate.exe`, `chrome.exe`.
   * **Suspicious File Executed:** `Purchase-Order_NO.231101.exe`
+    ![Alternative Text](images/malicious_process.png) \
+    *Figure 2: Malicious Process Execution Log*
+
   * **File Location:** `c:/Users/John/Downloads/Purchase-Order_NO.231101.exe`
   * **Threat Identification:** Identified as **Trojan.MSIL/AgentTesla**.
   * **VirusTotal Intelligence:** [View VT Report](https://www.virustotal.com/gui/file/40618ab352c23e61bb192f2aedd9360fed2df2a25d42491d0ab56eda5c2db558)
+    ![Alternative Text](images/VirusTotal.png) \
+    *Figure 3: VirusTotal Detection Results*
 
 ## 4. Command History Analysis
 The following commands were observed executing on John's machine, indicating unauthorized system interaction:
