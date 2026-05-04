@@ -122,6 +122,7 @@ The same C2 server also communicated with **MikeComputer (172.16.17.14)**. Indic
 
 ### Browser History
 ![Alternative Text](images/browser_history_suspicious.png)
+
 *Figure 8: The suspicious browser history*
 
 2020-12-05 22:36  →  http://bit.ly/3ecXem52
