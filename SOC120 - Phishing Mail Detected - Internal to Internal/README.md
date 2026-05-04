@@ -16,7 +16,7 @@
 * **Subject:** Meeting
 * **Attachments:** None
 
-**Email Body:**
+**Email Body:** \
 ![Alternative Text](images/Suspicious_Email.png) \
 *Figure 1: Suspicious Email from John to Susie*
 
