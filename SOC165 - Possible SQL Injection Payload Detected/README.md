@@ -40,7 +40,7 @@ To determine the nature of the source IP, external threat intelligence was lever
 *Figure 1: AbuseIPDB search result for the source IP(167.99.169.17)*
 
 ![Alternative Text](images/Talos.png)
-*Figure 1: Talos search result for the source IP(167.99.169.17)*
+*Figure 2: Talos search result for the source IP(167.99.169.17)*
 
 ### 3. Web Traffic & Payload Analysis
 Reviewing the server logs for traffic originating from `167.99.169.17` revealed a systematic, automated attack pattern. The source utilized the same User-Agent (`Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1`) to send multiple variations of SQL syntax:
@@ -51,7 +51,15 @@ Reviewing the server logs for traffic originating from `167.99.169.17` revealed 
 * `?q=' OR 'x'='x`
 * `?q=1' ORDER BY 3--+`
 
-*[📸 Add Screenshot: Log management / SIEM query showing the sequence of these payloads and their timestamps]*
+![Alternative Text](images/logs_source_ip.png)
+*Figure 3: Log management showing the sequence of these payloads and their timestamps for the source IP(167.99.169.17)*
+
+The requested suspicious URLs:
+https://172.16.17.18/search/?q=%22%20OR%201%20%3D%201%20--%20-
+https://172.16.17.18/search/?q=%27
+https://172.16.17.18/search/?q=%27%20OR%20%271
+https://172.16.17.18/search/?q=%27%20OR%20%27x%27%3D%27x
+https://172.16.17.18/search/?q=1%27%20ORDER%20BY%203--%2B
 
 **Indicator of Compromise (IOC) Analysis:**
 The presence of repeated requests, varied SQL payloads, syntax testing (`'`), boolean testing (`OR 'x'='x`), and column enumeration attempts (`ORDER BY`) is a definitive signature of an automated SQL vulnerability scanner (e.g., SQLmap). 
@@ -62,7 +70,8 @@ When cross-referencing the malicious requests with the server's responses, the l
 **What does an HTTP 500 mean in this context?**
 It is a strong signal that the unsanitized input successfully reached the database layer, broke the SQL query syntax, and caused an unhandled backend exception. While an HTTP 500 does not confirm data exfiltration (which would typically present as an HTTP 200 OK with a larger-than-normal response size), it *does* confirm that the application is poorly sanitized and highly vulnerable to injection.
 
-*[📸 Add Screenshot: Web server logs highlighting the HTTP 500 response codes paired with the SQLi requests]*
+![Alternative Text](images/http_500.png)
+*Web server logs highlighting the HTTP 500 response codes paired with the SQLi requests*
 
 ### 5. Escalation & Conclusion
 **Requires Tier 2 Escalation:** Yes.
@@ -71,5 +80,3 @@ It is a strong signal that the unsanitized input successfully reached the databa
 1.  Verify if any subsequent payloads from this IP (or others) returned an HTTP 200.
 2.  Review Endpoint Detection and Response (EDR) or database logs for anomalous child processes (e.g., `xp_cmdshell` execution).
 3.  Notify the web development/engineering team to implement immediate input sanitization and parameterized queries on the `WebServer1001` search function.
-
-*[🔗 Add Link: Link to any internal tickets created, or a link to an OWASP SQLi remediation guide for the dev team]*
