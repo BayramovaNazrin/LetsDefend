@@ -19,7 +19,7 @@ An alert was triggered for a potential SQL Injection (SQLi) attempt targeting We
 
 ---
 
-## 🕵️‍♂️ Investigation Methodology
+## Investigation Methodology
 
 ### 1. Alert Trigger Validation & Traffic Analysis
 The alert was generated because the requested URL contained the string `OR 1 = 1`, a classic boolean-based SQL injection payload designed to evaluate to true and bypass authentication or return unauthorized database records. 
