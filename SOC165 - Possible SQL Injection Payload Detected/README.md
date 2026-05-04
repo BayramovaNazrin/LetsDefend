@@ -36,7 +36,11 @@ To determine the nature of the source IP, external threat intelligence was lever
 * **Reputation:** 0% confidence of abuse on AbuseIPDB; Neutral reputation on Cisco Talos.
 * **Analyst Note:** The IP belongs to cloud infrastructure. While it lacks a heavily flagged malicious reputation, threat actors frequently spin up cheap, ephemeral VPS instances on DigitalOcean to conduct automated scanning. The lack of negative reputation does not clear the IP of suspicion.
 
-*[📸 Add Screenshot: AbuseIPDB and Cisco Talos search results for the source IP]*
+![Alternative Text](images/abuseIPDB.png)
+*Figure 1: AbuseIPDB search result for the source IP(167.99.169.17)*
+
+![Alternative Text](images/Talos.png)
+*Figure 1: Talos search result for the source IP(167.99.169.17)*
 
 ### 3. Web Traffic & Payload Analysis
 Reviewing the server logs for traffic originating from `167.99.169.17` revealed a systematic, automated attack pattern. The source utilized the same User-Agent (`Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1`) to send multiple variations of SQL syntax:
